@@ -29,6 +29,7 @@ class BarangController extends Controller
         ->join('warna', 'barang.id_warna', '=', 'warna.id')
         ->join('size', 'barang.id_size', '=', 'size.id')
         ->select(['barang.id', 'kode_barang', 'nama_barang', 'kategori_name', 'merk_name', 'warna_name', 'angka_size', 'size_satuan', 'stock'])
+        ->orderBy('barang.id','DESC')
         ->paginate(5);
 
         return view('datamaster.barang.barang', ['barang' => $barang]);

@@ -22,7 +22,7 @@ class BarangMasukController extends Controller
 
     public function index() {
         // $barang = Barang::all();
-        $barang_masuk = BarangMasuk::paginate(5);
+        $barang_masuk = BarangMasuk::orderBy('id','DESC')->paginate(5);
 
         return view('barangmasuk.barangmasuk', ['barang_masuk' => $barang_masuk]);
     }

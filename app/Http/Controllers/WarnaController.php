@@ -18,7 +18,7 @@ class WarnaController extends Controller
     }
 
     public function index() {
-        $warna = Warna::paginate(5);
+        $warna = Warna::orderBy('warna_name','asc')->paginate(5);
 
         return view('datamaster.warna.warna', ['warna' => $warna]);
     }

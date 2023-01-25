@@ -18,7 +18,7 @@ class MerkController extends Controller
     }
 
     public function index() {
-        $merk = Merk::paginate(5);
+        $merk = Merk::orderBy('merk_name','asc')->paginate(5);
 
         return view('datamaster.merk.merk', ['merk' => $merk]);
     }

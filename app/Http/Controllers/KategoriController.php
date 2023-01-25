@@ -22,7 +22,7 @@ class KategoriController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $kategori = Kategori::paginate(5);
+        $kategori = Kategori::orderBy('kategori_name','asc')->paginate(5);
 
         return view('datamaster.kategori.kategori', ['kategori' => $kategori]);
     }

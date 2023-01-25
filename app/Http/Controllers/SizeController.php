@@ -18,7 +18,7 @@ class SizeController extends Controller
     }
 
     public function index() {
-        $size = Size::paginate(5);
+        $size = Size::orderBy('size_satuan','asc')->paginate(5);
 
         return view('datamaster.size.size', ['size' => $size]);
     }

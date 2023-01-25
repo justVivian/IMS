@@ -25,7 +25,7 @@ class ReturController extends Controller
 
     public function index() {
         // $barang = Barang::all();
-        $retur = Retur::paginate(5);
+        $retur = Retur::orderBy('id','DESC')->paginate(5);
 
         return view('retur.retur', ['retur' => $retur]);
     }
