@@ -67,9 +67,9 @@
                 <td>{{ $p->jumlah_retur }}</td>
                 <td>{{ $p->alasan }}</td>
                 <td>@if( $p->status == 1)
-                    <label class="status-success">Accepted
+                    <label class="status-success">Bisa kembali ke stok
                     @else
-                    <label class="text-danger status-danger">Not Accepted
+                    <label class="text-danger status-danger">Tidak bisa kembali ke stok
                     @endif
                 </label></td>
                 <td class="text-center">

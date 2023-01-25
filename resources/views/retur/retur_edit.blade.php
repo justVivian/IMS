@@ -90,8 +90,8 @@
         <div class="form-group col-lg-4 col-md-6 col-sm-12">
             <label>Status</label>
             <select class="form-control input-form barang-form" id="status-option" name="status">
-                <option value="1" @if($retur->status == 1) selected @endif>Accepted</option>
-                <option value="2" @if($retur->status == 2) selected @endif>Not Accepted</option>
+                <option value="1" @if($retur->status == 1) selected @endif>Bisa kembali ke stok</option>
+                <option value="2" @if($retur->status == 2) selected @endif>Tidak bisa kembali ke stok</option>
             </select> 
                 @if($errors->has('status-option'))
                 <div class="text-danger">
