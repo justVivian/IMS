@@ -28,7 +28,7 @@
         <div class="row">
 
             <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                <label>Tanggal Masuk</label>
+                <label>Tanggal Keluar</label>
                 <input type="date" name="tanggal_keluar" class="form-control input-form barang-form" placeholder="Tanggal Keluar ..">
 
                 @if($errors->has('tanggal_keluar'))

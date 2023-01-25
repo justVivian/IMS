@@ -56,10 +56,10 @@ class BarangController extends Controller
 
     public function tambah() {
         $barang = Barang::all();
-        $kategori = Kategori::all();
-        $merk = Merk::all();
-        $warna = Warna::all();
-        $size = Size::all();
+        $kategori = Kategori::orderBy('kategori_name','asc')->get();
+        $merk = Merk::orderBy('merk_name','asc')->get();
+        $warna = Warna::orderBy('warna_name','asc')->get();
+        $size = Size::orderBy('size_satuan','asc')->get();
 
         return view('datamaster.barang.barang_tambah', ['barang' => $barang, 'kategori' => $kategori, 'merk' => $merk, 'warna' => $warna, 'size' => $size]);
     } 
@@ -96,10 +96,10 @@ class BarangController extends Controller
 
     public function edit($id) {
         $barang = Barang::find($id);
-        $kategori = Kategori::all();
-        $merk = Merk::all();
-        $warna = Warna::all();
-        $size = Size::all();
+        $kategori = Kategori::orderBy('kategori_name','asc')->get();
+        $merk = Merk::orderBy('merk_name','asc')->get();
+        $warna = Warna::orderBy('warna_name','asc')->get();
+        $size = Size::orderBy('size_satuan','asc')->get();
         return view('datamaster.barang.barang_edit', ['barang' => $barang, 'kategori' => $kategori, 'merk' => $merk, 'warna' => $warna, 'size' => $size]);
     }
 
