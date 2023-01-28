@@ -60,34 +60,42 @@
     </div> -->
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card dashboard-card" style="background: #BFDCFF;">
-                <p class="db-title">Stok Barang</p>
-                <p class="db-subtitle">Hampir Habis</p>
-                <p class="db-count"><?= $data['jumlah_barang'] ?></p>
-            </div>
+            <a href="/barang">
+                <div class="card dashboard-card" style="background: #BFDCFF;">
+                    <p class="db-title">Stok Barang</p>
+                    <p class="db-subtitle">Hampir Habis</p>
+                    <p class="db-count"><?= $data['jumlah_barang'] ?></p>
+                </div>
+            </a>
         </div>
         <div class="col-md-6">
-            <div class="card dashboard-card" style="background: #FFEF77;">
-                <p class="db-title"> Barang Masuk  </p>
-                <p class="db-subtitle">Hari Ini</p>
-                <p class="db-count"><?= $data['masuk'] ?></p>
-            </div>
+            <a href="/barang-masuk">
+                <div class="card dashboard-card" style="background: #FFEF77;">
+                    <p class="db-title"> Barang Masuk  </p>
+                    <p class="db-subtitle">Hari Ini</p>
+                    <p class="db-count"><?= $data['masuk'] ?></p>
+                </div>
+            </a>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card dashboard-card" style="background: #B5FFA9;">
-                <p class="db-title"> Barang Keluar </p>
-                <p class="db-subtitle">Hari Ini</p>
-                <p class="db-count"><?= $data['keluar'] ?></p>
-            </div>
+            <a href="/barang-keluar">
+                <div class="card dashboard-card" style="background: #B5FFA9;">
+                    <p class="db-title"> Barang Keluar </p>
+                    <p class="db-subtitle">Hari Ini</p>
+                    <p class="db-count"><?= $data['keluar'] ?></p>
+                </div>
+            </a>
         </div>
         <div class="col-md-6">
-            <div class="card dashboard-card" style="background: #a9acff;">
-                <p class="db-title"> Barang Retur </p>
-                <p class="db-subtitle">Hari Ini</p>
-                <p class="db-count"><?= $data['retur'] ?></p>
-            </div>
+            <a href="/retur">
+                <div class="card dashboard-card" style="background: #a9acff;">
+                    <p class="db-title"> Barang Retur </p>
+                    <p class="db-subtitle">Hari Ini</p>
+                    <p class="db-count"><?= $data['retur'] ?></p>
+                </div>
+            </a>
         </div>
     </div>
 </div>

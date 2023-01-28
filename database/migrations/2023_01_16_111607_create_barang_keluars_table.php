@@ -18,6 +18,7 @@ class CreateBarangKeluarsTable extends Migration
             $table->integer('barang_id')->unsigned();
             $table->integer('stock_keluar');
             $table->date('tanggal_keluar');
+            $table->integer('user_id');
             $table->timestamps();
             $table->foreign('barang_id')
                     ->references('id')

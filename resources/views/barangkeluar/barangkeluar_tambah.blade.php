@@ -9,7 +9,7 @@
 @endsection
 
 @section('content-title')
-<p class="page-title">Edit Stok Barang Keluar</p>
+<p class="page-title">Tambah Stok Barang Keluar</p>
 @endsection
 
 @section('content')
@@ -61,6 +61,20 @@
                 @if($errors->has('stock_keluar'))
                     <div class="text-danger">
                         {{ $errors->first('stock_keluar')}}
+                    </div>
+                @endif
+
+            </div>
+            <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                <label>Dicatat Oleh</label>
+                <select class="form-control input-form barang-form" id="user-option" name="user_id">
+                    @foreach ($user as $b)
+                        <option value="{{ $b->id }}">{{ $b->name }}</option>
+                    @endforeach
+                </select> 
+                    @if($errors->has('user_id'))
+                    <div class="text-danger">
+                        {{ $errors->first('user_id')}}
                     </div>
                 @endif
 

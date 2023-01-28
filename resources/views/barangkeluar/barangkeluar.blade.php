@@ -43,6 +43,7 @@
                 <th>Kode Barang</th>
                 <th>Nama Barang</th>
                 <th>Stok</th>
+                <th>Dicatat Oleh</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -55,6 +56,7 @@
                 <td>{{ $p->barang->kode_barang }}</td>
                 <td>{{ $p->barang->nama_barang }}</td>
                 <td>{{ $p->stock_keluar }}</td>
+                <td>{{ $p->name }}</td>
                 <td class="text-center">
                     @can('keluar-edit')
                     <a href="/barang-keluar/edit/{{ $p->id }}" class="btn"><img src="{{ asset('storage/pen-square.svg') }}" alt=""></a>

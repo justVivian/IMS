@@ -132,7 +132,7 @@
 
         <div class="container" style="margin-top: 100px;">
             <div class="row d-flex justify-content-between">
-                <a href="/kategori" class="btn btn-kembali">Kembali</a>
+                <a href="/barang" class="btn btn-kembali">Kembali</a>
             
                 <div class="form-group div-simpan">
                     <input type="submit" class="btn btn-success btn-custom" value="Simpan">

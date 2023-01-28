@@ -9,7 +9,7 @@ class BarangKeluar extends Model
 {
     use HasFactory;
     protected $table = "barang_keluar";
-    protected $fillable = ['barang_id', 'stock_keluar', 'tanggal_keluar'];
+    protected $fillable = ['barang_id', 'stock_keluar', 'tanggal_keluar', 'user_id'];
     
     public function barang() {
         return $this->belongsTo('App\Models\Barang');

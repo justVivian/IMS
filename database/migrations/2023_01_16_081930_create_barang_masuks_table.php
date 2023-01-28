@@ -18,6 +18,7 @@ class CreateBarangMasuksTable extends Migration
             $table->integer('barang_id')->unsigned();
             $table->integer('stock_masuk');
             $table->date('tanggal_masuk');
+            $table->integer('user_id');
             $table->timestamps();
             $table->foreign('barang_id')
                     ->references('id')

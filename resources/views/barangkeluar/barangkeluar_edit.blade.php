@@ -67,6 +67,21 @@
                 @endif
 
             </div>
+            <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                <label>Dicatat Oleh</label>
+                <select class="form-control input-form barang-form" id="user-option" name="user_id">
+                    @foreach ($user as $b)
+                        <option value="{{ $b->id }}"
+                        @if($barang_keluar->user_id == $b->id) selected @endif>{{ $b->name }}</option>
+                    @endforeach
+                </select> 
+                    @if($errors->has('user_id'))
+                    <div class="text-danger">
+                        {{ $errors->first('user_id')}}
+                    </div>
+                @endif
+
+            </div>
         </div>
 
         <div class="container" style="margin-top: 100px;">

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Barang;
 use App\Models\BarangMasuk;
+use App\Models\User;
 
 use Session;
 
@@ -22,7 +23,9 @@ class BarangMasukController extends Controller
 
     public function index() {
         // $barang = Barang::all();
-        $barang_masuk = BarangMasuk::orderBy('id','DESC')->paginate(5);
+        $barang_masuk = BarangMasuk::join('users', 'barang_masuk.user_id', '=', 'users.id')
+        ->select(['barang_masuk.id', 'barang_id', 'stock_masuk', 'tanggal_masuk', 'name'])
+        ->orderBy('barang_masuk.id','DESC')->paginate(5);
 
         return view('barangmasuk.barangmasuk', ['barang_masuk' => $barang_masuk]);
     }
@@ -31,16 +34,19 @@ class BarangMasukController extends Controller
         $search = $request->search;
 
         $barang_masuk = BarangMasuk::join('barang', 'barang_masuk.barang_id', '=', 'barang.id')
+        ->join('users', 'barang_masuk.user_id', '=', 'users.id')
         ->where('kode_barang', 'like', '%'.$search.'%')
-        ->orWhere('nama_barang', 'like', '%'.$search.'%')->paginate(5);
+        ->orWhere('nama_barang', 'like', '%'.$search.'%')
+        ->orWhere('name', 'like', '%'.$search.'%')->paginate(5);
 
         return view('barangmasuk.barangmasuk', ['barang_masuk' => $barang_masuk]);
     }
 
     public function tambah() {
         $barang = Barang::all();
+        $user = User::orderBy('name','asc')->get();
 
-        return view('barangmasuk.barangmasuk_tambah', ['barang' => $barang]);
+        return view('barangmasuk.barangmasuk_tambah', ['barang' => $barang, 'user' => $user]);
     } 
 
     public function store(Request $request)
@@ -50,12 +56,14 @@ class BarangMasukController extends Controller
     		'id_barang' => 'required',
             'stock_masuk' => 'required',
             'tanggal_masuk' => 'required',
+            'user_id' => 'required',
     	]);
  
         BarangMasuk::create([
     		'barang_id' => $request->id_barang,
             'stock_masuk' => $request->stock_masuk,
             'tanggal_masuk' => $request->get('tanggal_masuk'),
+            'user_id' => $request->user_id,
     	]);
 
         $barang = Barang::find($request->id_barang);
@@ -68,7 +76,8 @@ class BarangMasukController extends Controller
     public function edit($id) {
         $barang_masuk = BarangMasuk::find($id);
         $barang = Barang::all();
-        return view('barangmasuk.barangmasuk_edit', ['barang_masuk' => $barang_masuk, 'barang' => $barang]);
+        $user = User::orderBy('name','asc')->get();
+        return view('barangmasuk.barangmasuk_edit', ['barang_masuk' => $barang_masuk, 'barang' => $barang, 'user' => $user]);
     }
 
     public function update($id, Request $request)
@@ -79,11 +88,13 @@ class BarangMasukController extends Controller
   		    'id_barang' => 'required',
             'stock_masuk' => 'required',
             'tanggal_masuk' => 'required',
+            'user_id' => 'required',
         ]);
 
         $barang_masuk = BarangMasuk::find($id);
         $barang_masuk->barang_id = $request->id_barang;
         $barang_masuk->tanggal_masuk = $request->tanggal_masuk;
+        $barang_masuk->user_id = $request->user_id;
     
         $barang = Barang::find($request->id_barang);
         if($stock_masuk_before < $request->stock_masuk) {

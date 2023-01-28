@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Barang;
 // use App\Models\BarangMasuk;
 use App\Models\BarangKeluar;
+use App\Models\User;
 
 use Session;
 
@@ -23,7 +24,9 @@ class BarangKeluarController extends Controller
 
     public function index() {
         // $barang = Barang::all();
-        $barang_keluar = BarangKeluar::orderBy('id','DESC')->paginate(5);
+        $barang_keluar = BarangKeluar::join('users', 'barang_keluar.user_id', '=', 'users.id')
+        ->select(['barang_keluar.id', 'barang_id', 'stock_keluar', 'tanggal_keluar', 'name'])
+        ->orderBy('id','DESC')->paginate(5);
 
         return view('barangkeluar.barangkeluar', ['barang_keluar' => $barang_keluar]);
     }
@@ -32,8 +35,10 @@ class BarangKeluarController extends Controller
         $search = $request->search;
 
         $barang_keluar = BarangKeluar::join('barang', 'barang_keluar.barang_id', '=', 'barang.id')
+        ->join('users', 'barang_keluar.user_id', '=', 'users.id')
         ->where('kode_barang', 'like', '%'.$search.'%')
-        ->orWhere('nama_barang', 'like', '%'.$search.'%')->paginate(5);
+        ->orWhere('nama_barang', 'like', '%'.$search.'%')
+        ->orWhere('name', 'like', '%'.$search.'%')->paginate(5);
 
         return view('barangkeluar.barangkeluar', ['barang_keluar' => $barang_keluar]);
     }
@@ -41,8 +46,9 @@ class BarangKeluarController extends Controller
 
     public function tambah() {
         $barang = Barang::all();
+        $user = User::orderBy('name','asc')->get();
 
-        return view('barangkeluar.barangkeluar_tambah', ['barang' => $barang]);
+        return view('barangkeluar.barangkeluar_tambah', ['barang' => $barang, 'user' => $user]);
     } 
 
     public function store(Request $request)
@@ -52,6 +58,7 @@ class BarangKeluarController extends Controller
     		'id_barang' => 'required',
             'stock_keluar' => 'required',
             'tanggal_keluar' => 'required',
+            'user_id' => 'required',
     	]);
 
         $barang = Barang::find($request->id_barang);
@@ -61,6 +68,7 @@ class BarangKeluarController extends Controller
                 'barang_id' => $request->id_barang,
                 'stock_keluar' => $request->stock_keluar,
                 'tanggal_keluar' => $request->get('tanggal_keluar'),
+                'user_id' => $request->user_id,
             ]);
 
             $barang->stock -= $request->stock_keluar;  
@@ -82,7 +90,8 @@ class BarangKeluarController extends Controller
     public function edit($id) {
         $barang_keluar = BarangKeluar::find($id);
         $barang = Barang::all();
-        return view('barangkeluar.barangkeluar_edit', ['barang_keluar' => $barang_keluar, 'barang' => $barang]);
+        $user = User::orderBy('name','asc')->get();
+        return view('barangkeluar.barangkeluar_edit', ['barang_keluar' => $barang_keluar, 'barang' => $barang, 'user' => $user]);
     }
 
     public function update($id, Request $request)
@@ -93,6 +102,7 @@ class BarangKeluarController extends Controller
   		    'id_barang' => 'required',
             'stock_keluar' => 'required',
             'tanggal_keluar' => 'required',
+            'user_id' => 'required',
         ]);
 
         $barang_keluar = BarangKeluar::find($id);
@@ -105,6 +115,7 @@ class BarangKeluarController extends Controller
             else {
                 $barang_keluar->barang_id = $request->id_barang;
                 $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
+                $barang_keluar->user_id = $request->user_id;
 
                 $selisih = $request->stock_keluar - $stock_keluar_before;
                 $barang->stock -= $selisih;
@@ -114,6 +125,7 @@ class BarangKeluarController extends Controller
         else if($stock_keluar_before > $request->stock_keluar) {
             $barang_keluar->barang_id = $request->id_barang;
             $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
+            $barang_keluar->user_id = $request->user_id;
 
             $selisih = $stock_keluar_before - $request->stock_keluar ;
             $barang->stock += $selisih;
@@ -122,6 +134,7 @@ class BarangKeluarController extends Controller
         else {
             $barang_keluar->barang_id = $request->id_barang;
             $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
+            $barang_keluar->user_id = $request->user_id;
             
             $barang->stock = $barang->stock;
             $barang_keluar->stock_keluar = $request->stock_keluar;
